@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <link id="favicon" rel="icon" href="" type="image/png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>{{pageTitle}}</title>
+    <meta name="title" content="{{title}}" />
+    <meta name="description" content="{{description}}" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{og:url}}" />
+    <meta property="og:title" content="{{og:title}}" />
+    <meta property="og:description" content="{{og:description}}" />
+    <meta property="og:image" content="{{og:image}}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{twitter:url}}" />
+    <meta property="twitter:title" content="{{twitter:title}}" />
+    <meta property="twitter:description" content="{{twitter:description}}" />
+    <meta property="twitter:image" content="{{twitter:image}}" />
+
+    <meta name="theme-color" content="#fafafa" />
+  </head>
+
+  <body></body>
+  <script>
+    const redirectPage = () => {
+      const redirectURL = document.querySelector("meta[property='og:url']")
+        .content;
+      setTimeout(() => {
+        window.location.replace(redirectURL);
+      }, 500);
+    };
+
+    window.addEventListener("load", () => redirectPage());
+  </script>
+</html>
