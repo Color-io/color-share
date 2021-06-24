@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  node-app:
+    #  can change your docker container name here
+    container_name: node-app-dev
+    command: npm dev -L
