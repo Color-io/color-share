@@ -1,14 +1,36 @@
 const path = require('path');
 const fs = require('fs');
+const config = require('../config/config');
 const catchAsync = require('../utils/catchAsync');
-const { videoService } = require('../services');
+const { videoService, appService } = require('../services');
+
+const H5URL = config.h5URL;
+
+const getRedirectURL = (appName, videoType = 'horizontal', videoID) => {
+  if (videoType === 'horizontal') {
+    const directPage = 'video.html';
+    const redirectUrl = `${H5URL}${appName}/${directPage}?videoId=${videoID}`;
+    return redirectUrl;
+  }
+
+  const directPage = 'watch.html';
+  const redirectUrl = `${H5URL}${appName}/${directPage}#${videoID}`;
+  return redirectUrl;
+};
 
 const getHTMLMetatags = catchAsync(async (req, res) => {
   const { videoId } = req.params;
-  const reqURL = decodeURIComponent(req.url);
-  const strArr = reqURL.split('=');
-  strArr.shift();
-  const redirectUrl = strArr.join('=');
+  const { type, channelID } = req.query;
+
+  const app = await appService.getAppById(channelID);
+  const { app_name: appName } = app;
+
+  const redirectURL = getRedirectURL(appName, type, videoId);
+
+  // const reqURL = decodeURIComponent(req.url);
+  // const strArr = reqURL.split('=');
+  // strArr.shift();
+  // const redirectUrl = strArr.join('=');
 
   const video = await videoService.getVideoById(videoId);
   const { video_title: videoTitle, thumbnail_url: thumbnailUrl, video_description: videoDescription } = video;
@@ -29,8 +51,8 @@ const getHTMLMetatags = catchAsync(async (req, res) => {
     htmlContent = htmlContent.replace('{{og:description}}', videoDescription);
     htmlContent = htmlContent.replace('{{twitter:description}}', videoDescription);
 
-    htmlContent = htmlContent.replace('{{og:url}}', redirectUrl);
-    htmlContent = htmlContent.replace('{{twitter:url}}', redirectUrl);
+    htmlContent = htmlContent.replace('{{og:url}}', redirectURL);
+    htmlContent = htmlContent.replace('{{twitter:url}}', redirectURL);
 
     htmlContent = htmlContent.replace('{{og:image}}', thumbnailUrl);
     htmlContent = htmlContent.replace('{{twitter:image}}', thumbnailUrl);
