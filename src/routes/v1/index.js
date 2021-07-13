@@ -7,7 +7,7 @@ const router = express.Router();
 
 const defaultRoutes = [
   {
-    path: '/share',
+    path: '/',
     route: shareRoute,
   },
 ];

@@ -6,8 +6,8 @@ const { videoService, appService } = require('../services');
 
 const H5URL = config.h5URL;
 
-const getRedirectURL = (appName, videoType = 'horizontal', videoID) => {
-  if (videoType === 'horizontal') {
+const getRedirectURL = (appName, videoType = 'h', videoID) => {
+  if (videoType === 'h') {
     const directPage = 'video.html';
     const redirectUrl = `${H5URL}${appName}/${directPage}?videoId=${videoID}`;
     return redirectUrl;
@@ -20,12 +20,12 @@ const getRedirectURL = (appName, videoType = 'horizontal', videoID) => {
 
 const getHTMLMetatags = catchAsync(async (req, res) => {
   const { videoId } = req.params;
-  const { type, channelID } = req.query;
+  const { t: videoType, cid: channelID } = req.query;
 
   const app = await appService.getAppById(channelID);
   const { app_name: appName } = app;
 
-  const redirectURL = getRedirectURL(appName, type, videoId);
+  const redirectURL = getRedirectURL(appName, videoType, videoId);
 
   // const reqURL = decodeURIComponent(req.url);
   // const strArr = reqURL.split('=');

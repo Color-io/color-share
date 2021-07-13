@@ -29,13 +29,13 @@ module.exports = router;
  *           type: string
  *         description: Video id
  *       - in: query
- *         name: type
+ *         name: t
  *         schema:
  *           type: string
  *           enum: [horizontal, vertical]
  *         description: User name
  *       - in: query
- *         name: channelID
+ *         name: cid
  *         schema:
  *           type: string
  *         description: Channel ID of App
