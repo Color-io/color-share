@@ -34,6 +34,7 @@ const getHTMLMetatags = catchAsync(async (req, res) => {
 
   const video = await videoService.getVideoById(videoId);
   const { video_title: videoTitle, thumbnail_url: thumbnailUrl, video_description: videoDescription } = video;
+  const ogImage = `https://share.colorpixel.asia/${encodeURIComponent(thumbnailUrl)}`;
 
   const htmlPath = `./src/templates/videoMetatag.html`;
   const tempFileName = `temp-${videoId}.html`;
@@ -54,7 +55,7 @@ const getHTMLMetatags = catchAsync(async (req, res) => {
     htmlContent = htmlContent.replace('{{og:url}}', redirectURL);
     htmlContent = htmlContent.replace('{{twitter:url}}', redirectURL);
 
-    htmlContent = htmlContent.replace('{{og:image}}', thumbnailUrl);
+    htmlContent = htmlContent.replace('{{og:image}}', ogImage);
     htmlContent = htmlContent.replace('{{twitter:image}}', thumbnailUrl);
 
     fs.writeFileSync(saveFilePath, htmlContent);
