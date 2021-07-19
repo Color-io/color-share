@@ -34,7 +34,7 @@ const getHTMLMetatags = catchAsync(async (req, res) => {
 
   const video = await videoService.getVideoById(videoId);
   const { video_title: videoTitle, thumbnail_url: thumbnailUrl, video_description: videoDescription } = video;
-  const ogImage = `https://share.colorpixel.asia/${encodeURIComponent(thumbnailUrl)}`;
+  const ogImage = `https://share.colorpixel.asia/image/${encodeURIComponent(thumbnailUrl)}`;
 
   const htmlPath = `./src/templates/videoMetatag.html`;
   const tempFileName = `temp-${videoId}.html`;
