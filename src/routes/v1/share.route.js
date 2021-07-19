@@ -2,6 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 const shareController = require('../../controllers/share.controller');
+const imageController = require('../../controllers/image.controller');
+
+router.route('/image/:imageURL').get(imageController.serveImage);
 
 router.route('/:videoId').get(shareController.getHTMLMetatags);
 
