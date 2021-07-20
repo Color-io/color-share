@@ -21,7 +21,7 @@ const downloadImage = (imageURL) => {
 
   return axios({
     method: 'get',
-    url: imageURL,
+    url: encodeURI(imageURL),
     responseType: 'stream',
   }).then((response) => {
     return new Promise((resolve, reject) => {
