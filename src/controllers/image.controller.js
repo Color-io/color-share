@@ -5,7 +5,7 @@ const resizeOptimizeImages = require('resize-optimize-images');
 const compressImage = async (imageName) => {
   const options = {
     images: [`./src/images/${imageName}`],
-    width: 640,
+    width: 320,
     quality: 50,
   };
 
