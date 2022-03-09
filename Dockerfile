@@ -1,15 +1,17 @@
-FROM node:alpine
+FROM node:lts-alpine3.14
 
 RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
 
 WORKDIR /usr/src/node-app
 
-COPY package*.json ./
+USER node
 
-USER root
+COPY --chown=node:node . .
 
 RUN npm install
 
-COPY --chown=node:node . .
+RUN ["chmod", "+x", "docker-entrypoint.sh"]
+
+ENTRYPOINT ["sh","docker-entrypoint.sh"]
 
 EXPOSE 3000
